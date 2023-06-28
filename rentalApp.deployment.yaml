@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rental-app
+  template:
+    metadata:
+      labels:
+        app: rental-app
+    spec:
+      containers:
+      - name: rental-app
+        image: glennin/rental-app
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+
+
