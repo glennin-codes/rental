@@ -1,5 +1,5 @@
 import express from "express";
-import { registerOwner } from "../Controllers/Auth/index.js";
+import { registerOwner } from "../Controllers/Auth/signup.js";
 import { verifyCode } from "../Controllers/Auth/VerifyCode.js";
 const router = express.Router(); 
 router.get('/',(re,res)=>{
