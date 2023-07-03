@@ -1,7 +1,7 @@
 // const {google} =require('googleapis');
 import { createTransport } from 'nodemailer';
 import Mailgen from 'mailgen';
-import {configure} from './Config';
+import {configure} from './Config.js';
 
 const sendMail= (options) => {
 
@@ -71,7 +71,7 @@ let mail = MailGenerator.generate(response)
 
 const options= {
    
-    from: `ComradesBiz <${EMAIL}>`,
+    from: `ComradesBiz <${configure.EMAIL}>`,
     to: `${email}`,
     subject: `Message From  ComradesBiz Email verification`,
     html:mail
@@ -135,7 +135,7 @@ let mail = MailGenerator.generate(response);
 const options = {
    
   from: ` ${email}`,
-  to: `${EMAIL}`,
+  to: `${configure.EMAIL}`,
   subject: `Message From  ComradesBiz ..a customer Enquiry`,
   html:mail
 

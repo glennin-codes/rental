@@ -25,11 +25,6 @@ const ownerSchema = new Schema({
     type: String,
     
   },
-  school: {
-    type: String,
-    
-  },
-
    longitude: {
     type:String,
    
