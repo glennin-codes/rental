@@ -1,4 +1,4 @@
-import { Owner } from "../../Models/Owner";
+import { Owner } from "../../Models/Owner.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 

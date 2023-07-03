@@ -33,9 +33,7 @@ const ownerSchema = new Schema({
     type:String,
     
   },
-  // verificationCode: {
-  //   type: Number,
-  // },
+
   isVerified: {
     type: Boolean,
     default: false,
