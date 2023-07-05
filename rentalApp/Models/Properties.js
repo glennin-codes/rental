@@ -32,6 +32,6 @@ const PropertyListingSchema = new Schema({
   }
 });
 
-const Properties = model('Property', PropertyListingSchema);
+export const Properties = model('Property', PropertyListingSchema);
 
 
