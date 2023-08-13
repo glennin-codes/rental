@@ -29,7 +29,11 @@ const PropertyListingSchema = new Schema({
     address: String,
     city: String,
     country: String
-  }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const Properties = model('Property', PropertyListingSchema);

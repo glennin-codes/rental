@@ -10,6 +10,7 @@ import deleteUser from "../Controllers/User/DeleteUser.js";
 import addProperties from "../Controllers/Properties/AddProperties.js";
 import multer from "multer";
 import { GetAllProperties } from "../Controllers/Properties/GetAllProperties.js";
+import { GetSingleProperty } from "../Controllers/Properties/GetSingleProperty.js";
 const router = express.Router(); 
 const storage = multer.memoryStorage(); // Store files in memory as buffers
 const upload = multer({ storage: storage });
@@ -22,4 +23,5 @@ router.post('/auth/login',loginUser);
 router.route('/users/').get(getAllUsers);
 router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(AuthenticateToken,deleteUser);
 router.route('/properties').post( upload.array('photos'),addProperties).get(GetAllProperties);
+router.route('/property/:id').get(GetSingleProperty);
 export default router;
