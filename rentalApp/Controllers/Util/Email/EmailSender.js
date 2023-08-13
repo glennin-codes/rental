@@ -188,7 +188,7 @@ sendMail(options)
 //   });
 // }catch(err){
 //   console.error(err);
-// }
+// 
 
 // };
 // const VerifyEmail=({email,name,code})=>{

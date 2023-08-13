@@ -8,7 +8,11 @@ import getSingleUser from "../Controllers/User/getSingleUser.js";
 import AuthenticateToken from "../Middleware/AuthMiddleware.js";
 import deleteUser from "../Controllers/User/DeleteUser.js";
 import addProperties from "../Controllers/Properties/AddProperties.js";
+import multer from "multer";
+import { GetAllProperties } from "../Controllers/Properties/GetAllProperties.js";
 const router = express.Router(); 
+const storage = multer.memoryStorage(); // Store files in memory as buffers
+const upload = multer({ storage: storage });
 router.get('/',(re,res)=>{
   res.send("api working succesful!")
 })
@@ -17,5 +21,5 @@ router.post('/auth/signup',registerOwner)
 router.post('/auth/login',loginUser);
 router.route('/users/').get(getAllUsers);
 router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(AuthenticateToken,deleteUser);
-router.route('/properties').post(addProperties);
+router.route('/properties').post( upload.array('photos'),addProperties).get(GetAllProperties);
 export default router;

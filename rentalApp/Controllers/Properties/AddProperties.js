@@ -1,33 +1,43 @@
-import ImageKit from 'imagekit';
-import { v4 as uuidv4 } from 'uuid';
-import { Properties } from '../../Models/Properties.js';
-import { config } from "dotenv";
-config();
-// Configure ImageKit
-const imagekit = new ImageKit({
-  publicKey: process.env.publicKey,
-  privateKey: process.env.privateKey,
-  urlEndpoint:"https://ik.imagekit.io/hcmhqwy2h"
-});
+import { v4 as uuidv4 } from "uuid";
+import { Properties } from "../../Models/Properties.js";
+import { imagekit } from "../../assets/ImageKit.js";
+import sharp from 'sharp'; // Import the 'sharp' library
 
 const addProperties = async (req, res) => {
-  try {
+  const width = 500;
+  const height = 350;
+  const format = "webp";
+  const quality = 80;
 
+  try {
+  
     // Process and store images using ImageKit
-    const imagePromises = req.body.photos.map(async (photo) => {
+    const imagePromises = req.files.map(async (photo) => {
       const { buffer, originalname } = photo;
 
       const uniqueId = uuidv4(); // Generate unique ID for the image
+      // Process the image using sharp
+      const processedImageBuffer = await sharp(buffer)
+      .resize(width, height, {
+        fit: sharp.fit.inside,
+        withoutEnlargement: true,
+        })
+        .toFormat(format, { quality })
+        .toBuffer();
       const uploadResult = await imagekit.upload({
-        file: buffer,
-        fileName: uniqueId + '_' + originalname
+        file: processedImageBuffer,
+        fileName: uniqueId + "_" + originalname,
       });
+      console.log("result", uploadResult);
+      const { fileId, url,thumbnailUrl } = uploadResult;
 
-      const { fileId, url } = uploadResult;
-      return { id: fileId, url, title: originalname };
+      console.log("url", url);
+
+      return { id: fileId, url: url, thumbnailUrl:thumbnailUrl, title: originalname };
     });
 
     const processedImages = await Promise.all(imagePromises);
+    console.log("imagesUrl processed ", processedImages);
 
     // Prepare property data
     const propertyData = {
@@ -42,17 +52,17 @@ const addProperties = async (req, res) => {
       amenities: req.body.amenities,
       photos: processedImages,
       purpose: req.body.purpose,
-      location: req.body.location
+      location: req.body.location,
     };
 
     // Create new property listing
     const property = new Properties(propertyData);
     await property.save();
 
-    res.status(200).json({ message: 'Property added successfully!' });
+    res.status(200).json({ message: "Property added successfully!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to add property.' });
+    res.status(500).json({ error: "Failed to add property." });
   }
 };
 

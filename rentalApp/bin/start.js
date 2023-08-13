@@ -9,6 +9,7 @@ import createDebugger from "debug";
 import http from "http";
 import mongoose from "mongoose";
 import dotenv from 'dotenv'
+import { log } from "console";
 
 dotenv.config();
 const debug = createDebugger('rental-app:server')
@@ -104,6 +105,7 @@ function startServer() {
     const addr = server.address();
     const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
     debug("Listening on " + bind);
+    console.log(`server listenening on http://localhost:${port}`);
   }
 }
 

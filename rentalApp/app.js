@@ -7,13 +7,18 @@ const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
+});
+
+app.use((req, res, next) => {
+  console.log(req.body); // Log the request body
+  next(); // Proceed to the next middleware or route handler
 });
 
 // error handler

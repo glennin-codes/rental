@@ -1,0 +1,42 @@
+{
+    "price": "1000",
+    "rentFrequency": "monthly",
+    "rooms": 3,
+    "title": "Spacious Apartment",
+    "baths": 2,
+    "area": "1200 sqft",
+    "isVerified": true,
+    "description": "A beautiful apartment in a prime location",
+    "amenities": [
+      {
+        "text": "Swimming Pool",
+        "externalID": "pool123"
+      },
+      {
+        "text": "Gym",
+        "externalID": "gym456"
+      }
+    ],
+   "photos": [
+      {
+        "buffer": "",
+        "originalname": "image1.jpg"
+      },
+      {
+        "buffer": "<base64-encoded-image-data-2>",
+        "originalname": "image2.jpg"
+      },
+      {
+        "buffer": "<base64-encoded-image-data-3>",
+        "originalname": "image3.jpg"
+      }
+    ],
+    "purpose": "rent",
+    "location": {
+      "latitude": "37.7749",
+      "longitude": "-122.4194",
+      "address": "123 Main St",
+      "city": "San Francisco",
+      "country": "USA"
+    }
+  }
