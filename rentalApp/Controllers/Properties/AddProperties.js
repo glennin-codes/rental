@@ -53,6 +53,7 @@ const addProperties = async (req, res) => {
       photos: processedImages,
       purpose: req.body.purpose,
       location: req.body.location,
+      Owner:req.body.email,
     };
 
     // Create new property listing

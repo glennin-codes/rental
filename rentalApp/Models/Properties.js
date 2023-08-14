@@ -9,6 +9,7 @@ const PropertyListingSchema = new Schema({
   area: String,
   isVerified: Boolean,
   description: String,
+  Owner:String,
   amenities: [
     {
       text: { type: String},
@@ -31,6 +32,7 @@ const PropertyListingSchema = new Schema({
     city: String,
     country: String
   },
+
   createdAt: {
     type: Date,
     default: Date.now,

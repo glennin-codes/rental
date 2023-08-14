@@ -22,7 +22,7 @@ router.post('/verifyCode',verifyCode);
 router.post('/auth/signup',registerOwner)
 router.post('/auth/login',loginUser);
 router.route('/users/').get(getAllUsers);
-router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(AuthenticateToken,deleteUser);
+router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(deleteUser);
 router.route('/properties').post( upload.array('photos'),addProperties).get(GetAllProperties);
 router.route('/property/:id').get(GetSingleProperty).delete(deleteProperty);
 export default router;
