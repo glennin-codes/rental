@@ -59,7 +59,7 @@ const addProperties = async (req, res) => {
     const property = new Properties(propertyData);
     await property.save();
 
-    res.status(200).json({ message: "Property added successfully!" });
+    res.status(200).json({ message: "Property added successfully!" ,property:property});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to add property." });

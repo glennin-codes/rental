@@ -19,7 +19,8 @@ const PropertyListingSchema = new Schema({
     {
       id: String,
       url: String,
-      title: String
+      title: String,
+      thumbnailUrl:String
     }
   ],
   purpose: String,
