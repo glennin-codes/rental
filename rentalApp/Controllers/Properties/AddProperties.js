@@ -2,38 +2,16 @@ import { v4 as uuidv4 } from "uuid";
 import { Properties } from "../../Models/Properties.js";
 import { imagekit } from "../../assets/ImageKit.js";
 import sharp from 'sharp'; // Import the 'sharp' library
+import processAndUploadImage from "./utils/imageUtil.js";
 
 const addProperties = async (req, res) => {
-  const width = 500;
-  const height = 350;
-  const format = "webp";
-  const quality = 80;
-
-  try {
+try {
   
     // Process and store images using ImageKit
     const imagePromises = req.files.map(async (photo) => {
       const { buffer, originalname } = photo;
 
-      const uniqueId = uuidv4(); // Generate unique ID for the image
-      // Process the image using sharp
-      const processedImageBuffer = await sharp(buffer)
-      .resize(width, height, {
-        fit: sharp.fit.inside,
-        withoutEnlargement: true,
-        })
-        .toFormat(format, { quality })
-        .toBuffer();
-      const uploadResult = await imagekit.upload({
-        file: processedImageBuffer,
-        fileName: uniqueId + "_" + originalname,
-      });
-      console.log("result", uploadResult);
-      const { fileId, url,thumbnailUrl } = uploadResult;
-
-      console.log("url", url);
-
-      return { id: fileId, url: url, thumbnailUrl:thumbnailUrl, title: originalname };
+      return await processAndUploadImage(buffer,originalname);
     });
 
     const processedImages = await Promise.all(imagePromises);
