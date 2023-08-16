@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
-import { imagekit } from '../../../assets/ImageKit';
+import { imagekit } from '../../../assets/ImageKit.js';
 
 const processAndUploadImage = async (buffer, originalname) => {
     const width = 500;
