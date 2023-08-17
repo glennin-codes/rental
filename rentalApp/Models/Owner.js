@@ -42,7 +42,12 @@ const ownerSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  
+  resetToken: String, // To store the reset token
+  resetTokenExpiry: Date, // To store the expiry time of the reset token
+  signupMethod: {
+    type: String,
+    enum: ['manual', 'google'], // 'manual' for manual signup, 'google' for Google signup
+  },
 
   
 });

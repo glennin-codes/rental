@@ -79,6 +79,18 @@ const options= {
 }
 sendMail(options)
 }
+export const ResetEmail=(email,resetToken)=>{
+  const mailOptions = {
+    from: 'info@glenayienda.tech',
+    to: email,
+    subject: 'Password Reset Request',
+    text: `You are receiving this email because you (or someone else) have requested a password reset. Please click on the following link to reset your password: http://localhost:3000/reset-password/${resetToken}.\n\n Please note that this link is only valid for the next 1 hour.`,
+  };
+  sendMail(mailOptions);
+
+}
+
+
 
 export const contactUs=({name,email,phone,message})=>{
   let MailGenerator = new Mailgen({
