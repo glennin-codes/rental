@@ -6,7 +6,10 @@ import processAndUploadImage from "./utils/imageUtil.js";
 
 const addProperties = async (req, res) => {
 try {
-  
+  if (req.rateLimit.remaining < 0) {
+    // Rate limit exceeded, send custom message
+    return res.status(429).json({ message: req.rateLimit.message });
+  }
     // Process and store images using ImageKit
     const imagePromises = req.files.map(async (photo) => {
       const { buffer, originalname } = photo;

@@ -39,7 +39,7 @@ function startServer() {
   /**
    * Get port from environment and store in Express.
    */
-  const port = normalizePort(process.env.PORT || "3000");
+  const port = normalizePort(process.env.PORT || "3500");
   app.set("port", port);
 
   /**

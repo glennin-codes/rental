@@ -1,36 +1,38 @@
-import { Owner } from '../../Models/Owner.js';
-import { VerifyEmail } from '../Util/Email/EmailSender.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import admin from './Config/config.js';
+import { Owner } from "../../Models/Owner.js";
+import { VerifyEmail } from "../Util/Email/EmailSender.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import admin from "./Config/config.js";
 
 const generateAuthToken = (userId, email) => {
-  return jwt.sign(
-    { userId: userId, email: email },
-    process.env.JWT_SECRET,
-    { expiresIn: '1h' }
-  );
+  return jwt.sign({ userId: userId, email: email }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
 };
 
 export const registerOwner = async (req, res) => {
   try {
-    if (req.body.googleSignupID) {
+    if (req.body.googleUserData) {
+      console.log(req.body.googleUserData);
       // Sign-up with Google
-      const googleSignupID = req.body.googleSignupID;
-      const decodedToken = await admin.auth().verifyIdToken(googleSignupID);
-      const { email, name } = decodedToken;
+      // const googleSignupID = req.body.googleSignupID;
+      // const decodedToken = await admin.auth().verifyIdToken(googleSignupID);
+      const {    displayName,
+        photoURL,
+        email,} = req.body.googleUserData;
 
       const ownerExist = await Owner.findOne({ email: email });
 
       if (ownerExist) {
-        return res.status(409).json({ error: 'Email already exists' });
+        return res.status(409).json({ error: "Email already exists" });
       }
 
       const user = new Owner({
-        name: name,
+        name: displayName,
         email: email,
+        photo:photoURL?photoURL:"",
         password: null,
-        signupMethod: 'google',
+        signupMethod: "google",
         isVerified: true,
         verificationCode: null,
       });
@@ -39,15 +41,18 @@ export const registerOwner = async (req, res) => {
 
       const token = generateAuthToken(user._id, user.email);
 
-      return res.status(201).json({ token, email: user.email, name: user.name, id: user._id });
+      return res
+        .status(201)
+        .json({ token, email: user.email, name: user.name, id: user._id });
     } else {
       // Manual Sign-up
-      const { name, email, password, phone, location, longitude, latitude } = req.body;
+      const { name, email, password, phone, location, longitude, latitude } =
+        req.body;
 
       const existingOwner = await Owner.findOne({ email: email });
 
       if (existingOwner) {
-        return res.status(409).json({ error: 'Email already exists' });
+        return res.status(409).json({ error: "Email already exists" });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,7 +66,7 @@ export const registerOwner = async (req, res) => {
         location: location,
         longitude: longitude,
         latitude: latitude,
-        signupMethod: 'manual',
+        signupMethod: "manual",
         verificationCode: verificationCode,
       });
 
@@ -77,10 +82,12 @@ export const registerOwner = async (req, res) => {
 
       VerifyEmail(verify);
 
-      return res.status(201).json({ token, email: user.email, name: user.name, id: user._id });
+      return res
+        .status(201)
+        .json({ token, email: user.email, name: user.name, id: user._id });
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
