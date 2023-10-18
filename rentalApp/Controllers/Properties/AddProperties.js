@@ -1,7 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import { Properties } from "../../Models/Properties.js";
-import { imagekit } from "../../assets/ImageKit.js";
-import sharp from 'sharp'; // Import the 'sharp' library
 import processAndUploadImage from "./utils/imageUtil.js";
 
 const addProperties = async (req, res) => {
@@ -24,9 +22,9 @@ try {
     const propertyData = {
       price: req.body.price,
       rentFrequency: req.body.rentFrequency,
-      rooms: req.body.rooms,
+      room: req.body.rooms,
       title: req.body.title,
-      baths: req.body.baths,
+      bath: req.body.bath,
       area: req.body.area,
       isVerified: req.body.isVerified,
       description: req.body.description,

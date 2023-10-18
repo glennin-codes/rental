@@ -3,9 +3,9 @@ import { Schema, model } from 'mongoose';
 const PropertyListingSchema = new Schema({
   price: String,
   rentFrequency: String,
-  rooms: Number,
+  room: String,
   title: String,
-  baths: Number,
+  bath: Number,
   area: String,
   isVerified: Boolean,
   description: String,

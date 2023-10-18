@@ -13,12 +13,10 @@ const generateAuthToken = (userId, email) => {
 
 export const loginUser = async (req, res) => {
   try {
-    if (req.body.tokenId) {
+    if (req.body.googleId) {
       // Signing in with Google
-      const { tokenId } = req.body;
-      const decodedToken = await admin.auth().verifyIdToken(tokenId);
-      const { email } = decodedToken;
-      const user = await Owner.findOne({ email, signupMethod: 'google' });
+
+      const user = await Owner.findOne({ email:req.body.email, signupMethod: 'google' });
 
       if (user) {
         const token = generateAuthToken(user._id, user.email);
