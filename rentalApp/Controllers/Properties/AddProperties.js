@@ -24,7 +24,7 @@ try {
       rentFrequency: req.body.rentFrequency,
       room: req.body.rooms,
       title: req.body.title,
-      bath: req.body.bath,
+      baths: req.body.baths,
       area: req.body.area,
       isVerified: req.body.isVerified,
       description: req.body.description,
@@ -33,6 +33,8 @@ try {
       purpose: req.body.purpose,
       location: req.body.location,
       Owner:req.body.email,
+      furnishingStatus:req.body.furnishingStatus,
+      propertyType:req.body.propertyType
     };
 
     // Create new property listing

@@ -33,7 +33,7 @@ const PropertyListingSchema = new Schema({
     country: String
   },
   furnishingStatus:String,
-  PropertyType:String,
+  propertyType:String,
   createdAt: {
     type: Date,
     default: Date.now,

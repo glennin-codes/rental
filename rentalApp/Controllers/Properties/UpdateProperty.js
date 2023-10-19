@@ -32,7 +32,7 @@ export const UpdateProperty = async (req, res) => {
     // Update other fields
     propertyToUpdate.price = req.body.price;
     propertyToUpdate.rentFrequency = req.body.rentFrequency;
-    propertyToUpdate.rooms = req.body.rooms;
+    propertyToUpdate.room = req.body.room;
     propertyToUpdate.title = req.body.title;
     propertyToUpdate.baths = req.body.baths;
     propertyToUpdate.area = req.body.area;
@@ -42,6 +42,9 @@ export const UpdateProperty = async (req, res) => {
     propertyToUpdate.purpose = req.body.purpose;
     propertyToUpdate.location = req.body.location;
     propertyToUpdate.Owner = req.body.email;
+    propertyToUpdate.propertyType = req.body.propertyType,
+    propertyToUpdate.furnishingStatus = req.body.furnishingStatus
+  
 
     const updatedProperty = await propertyToUpdate.save();
 
