@@ -12,7 +12,7 @@ try {
     // Process and store images using ImageKit
     const imagePromises = req.body.photos.map(async (photo) => {
       const { buffer, originalname } = photo;
-
+  console.log('buffer', buffer);
       return await processAndUploadImage(buffer,originalname);
     });
 
