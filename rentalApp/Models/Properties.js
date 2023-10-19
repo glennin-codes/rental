@@ -5,7 +5,7 @@ const PropertyListingSchema = new Schema({
   rentFrequency: String,
   room: String,
   title: String,
-  bath: Number,
+  baths: Number,
   area: String,
   isVerified: Boolean,
   description: String,
@@ -32,7 +32,8 @@ const PropertyListingSchema = new Schema({
     city: String,
     country: String
   },
-
+  furnishingStatus:String,
+  PropertyType:String,
   createdAt: {
     type: Date,
     default: Date.now,
