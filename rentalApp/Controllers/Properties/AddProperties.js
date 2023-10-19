@@ -8,6 +8,7 @@ try {
     // Rate limit exceeded, send custom message
     return res.status(429).json({ message: req.rateLimit.message });
   }
+  console.log(req.body.photos);
     // Process and store images using ImageKit
     const imagePromises = req.body.photos.map(async (photo) => {
       const { buffer, originalname } = photo;
