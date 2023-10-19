@@ -9,7 +9,7 @@ try {
     return res.status(429).json({ message: req.rateLimit.message });
   }
     // Process and store images using ImageKit
-    const imagePromises = req.photos.map(async (photo) => {
+    const imagePromises = req.body.photos.map(async (photo) => {
       const { buffer, originalname } = photo;
 
       return await processAndUploadImage(buffer,originalname);
