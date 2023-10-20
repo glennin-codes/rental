@@ -23,7 +23,7 @@ try {
     const propertyData = {
       price: req.body.price,
       rentFrequency: req.body.rentFrequency,
-      room: req.body.rooms,
+      room: req.body.room,
       title: req.body.title,
       baths: req.body.baths,
       area: req.body.area,
