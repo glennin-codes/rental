@@ -18,7 +18,7 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const upload = multer();
+
 router.get('/',(req,res)=>{
   res.send("api working succesful!")
 })
