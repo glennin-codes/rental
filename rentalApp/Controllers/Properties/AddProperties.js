@@ -8,16 +8,16 @@ try {
     // Rate limit exceeded, send custom message
     return res.status(429).json({ message: req.rateLimit.message });
   }
-  console.log(req.body.photos);
+  console.log(req.files  + "ok","files");
     // Process and store images using ImageKit
     const imagePromises = req.files.map(async (photo) => {
       const { buffer, originalname } = photo;
-  console.log('buffer', buffer );
+  console.log('buffer', buffer +"ok");
       return await processAndUploadImage(buffer,originalname);
     });
 
     const processedImages = await Promise.all(imagePromises);
-    console.log("imagesUrl processed ", processedImages);
+    console.log("imagesUrl processed ", processedImages + "ok");
 
     // Prepare property data
     const propertyData = {
@@ -44,7 +44,7 @@ try {
 
     res.status(200).json({ message: "Property added successfully!" ,property:property});
   } catch (error) {
-    console.error(error);
+    console.error("error",error);
     res.status(500).json({ error: "Failed to add property." });
   }
 };
