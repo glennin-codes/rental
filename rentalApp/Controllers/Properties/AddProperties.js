@@ -8,16 +8,17 @@ try {
     // Rate limit exceeded, send custom message
     return res.status(429).json({ message: req.rateLimit.message });
   }
-  console.log(req.files  + "ok","files");
+  console.log("files",req.files );
     // Process and store images using ImageKit
     const imagePromises = req.files.map(async (photo) => {
       const { buffer, originalname } = photo;
-  console.log('buffer', buffer +"ok");
+  console.log('buffer', buffer );
       return await processAndUploadImage(buffer,originalname);
     });
+    console.log('lenght',imagePromises)
 
     const processedImages = await Promise.all(imagePromises);
-    console.log("imagesUrl processed ", processedImages + "ok");
+    console.log("imagesUrl processed ", processedImages );
 
     // Prepare property data
     const propertyData = {
