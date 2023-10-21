@@ -16,8 +16,9 @@ import { UpdateProperty } from "../Controllers/Properties/UpdateProperty.js";
 import { UpdatePwd, pwdResetEmails } from "../Controllers/Auth/ResetPwd/EmailReset.js";
 const router = express.Router(); 
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
+ const upload = multer();
 router.get('/',(req,res)=>{
   res.send("api working succesful!")
 })
@@ -28,6 +29,6 @@ router.route('/users/').get(getAllUsers);
 router.route('/reset-password/:token').post(UpdatePwd);
 router.route('/pwd-reset-emails/').post(pwdResetEmails);
 router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(deleteUser);
-router.route('/properties').post(upload.array(),addProperties).get(GetAllProperties);
+router.route('/properties').post(upload.fields('photos'),addProperties).get(GetAllProperties);
 router.route('/property/:id').get(GetSingleProperty).delete(deleteProperty).put(UpdateProperty);
 export default router;
