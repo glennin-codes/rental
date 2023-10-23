@@ -14,6 +14,7 @@ import { GetSingleProperty } from "../Controllers/Properties/GetSingleProperty.j
 import { deleteProperty } from "../Controllers/Properties/deleteProperty.js";
 import { UpdateProperty } from "../Controllers/Properties/UpdateProperty.js";
 import { UpdatePwd, pwdResetEmails } from "../Controllers/Auth/ResetPwd/EmailReset.js";
+import deleteAllExcept from "../insuators/delete.js";
 const router = express.Router(); 
 
 const storage = multer.memoryStorage();
@@ -22,6 +23,7 @@ const upload = multer({ storage: storage });
 router.get('/',(req,res)=>{
   res.send("api working succesful!")
 })
+router.delete('/properties/all/:id',deleteAllExcept);
 router.post('/verifyCode',verifyCode);
 router.post('/auth/signup',registerOwner)
 router.post('/auth/login',loginUser);
