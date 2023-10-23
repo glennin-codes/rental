@@ -16,9 +16,9 @@ import { UpdateProperty } from "../Controllers/Properties/UpdateProperty.js";
 import { UpdatePwd, pwdResetEmails } from "../Controllers/Auth/ResetPwd/EmailReset.js";
 const router = express.Router(); 
 
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
- const upload = multer();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+//  const upload = multer();
 router.get('/',(req,res)=>{
   res.send("api working succesful!")
 })
