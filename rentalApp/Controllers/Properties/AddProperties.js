@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Properties } from "../../Models/Properties.js";
 import processAndUploadImage from "./utils/imageUtil.js";
+import { clearMemory } from "./utils/clearMemory.js";
 
 const addProperties = async (req, res) => {
 try {
@@ -20,6 +21,11 @@ try {
     const processedImages = await Promise.all(imagePromises);
     console.log("imagesUrl processed ", processedImages );
 
+    const amenities = req.body.amenities.map((text) => ({
+      text,
+      externalID: uuidv4() 
+    }));
+    
     // Prepare property data
     const propertyData = {
       price: req.body.price,
@@ -30,7 +36,7 @@ try {
       area: req.body.area,
       isVerified: req.body.isVerified,
       description: req.body.description,
-      amenities: req.body.amenities,
+      amenities: amenities,
       photos: processedImages,
       purpose: req.body.purpose,
       location: req.body.location,
@@ -44,6 +50,7 @@ try {
     await property.save();
 
     res.status(200).json({ message: "Property added successfully!" ,property:property});
+    clearMemory(req, res);
   } catch (error) {
     console.error("error",error);
     res.status(500).json({ error: "Failed to add property." });

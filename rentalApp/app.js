@@ -7,17 +7,19 @@ import cors from 'cors'
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: "60mb" }));
 app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
+app.set('trust proxy', true);
 // Apply rate limiting middleware
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per windowMs
 
 });
-
+//rate limiting middleware
+app.set('trust proxy', true);
 app.use(limiter);
 app.use("/api", router);
 // catch 404 and forward to error handler
