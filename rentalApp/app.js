@@ -11,7 +11,6 @@ app.use(express.json({ limit: "60mb" }));
 app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
-app.set('trust proxy', true);
 // Apply rate limiting middleware
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
