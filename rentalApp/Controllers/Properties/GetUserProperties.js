@@ -1,5 +1,5 @@
 import { Properties } from '../../Models/Properties.js';
-export const GetAllProperties=async(req,res)=>{
+export const GetUserProperties=async(req,res)=>{
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
     const startDate = req.query.startDate;

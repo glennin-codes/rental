@@ -3,11 +3,12 @@ import { Schema, model } from 'mongoose';
 const PropertyListingSchema = new Schema({
   price: String,
   rentFrequency: String,
-  room: String,
-  title: String,
+ 
   baths: Number,
   area: String,
   isVerified: Boolean,
+   room: String,
+  title: String,
   description: String,
   Owner:String,
   amenities: [
@@ -26,11 +27,15 @@ const PropertyListingSchema = new Schema({
   ],
   purpose: String,
   location: {
-    latitude: String,
-    longitude: String,
-    address: String,
-    city: String,
-    country: String
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true,
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      index: '2dsphere', // 2dsphere index for geospatial queries
+    },
   },
   furnishingStatus:String,
   propertyType:String,

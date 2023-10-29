@@ -25,6 +25,14 @@ try {
       text,
       externalID: uuidv4() 
     }));
+    const locationText = req.body.locationText;
+    const location = {
+      type: 'Point',
+      coordinates: [parseFloat(req.body.long), parseFloat(req.body.lat)],
+      locationText: locationText,
+    };
+    
+
     
     // Prepare property data
     const propertyData = {
@@ -39,7 +47,7 @@ try {
       amenities: amenities,
       photos: processedImages,
       purpose: req.body.purpose,
-      location: req.body.location,
+      location: location,
       Owner:req.body.email,
       furnishingStatus:req.body.furnishingStatus,
       propertyType:req.body.propertyType
