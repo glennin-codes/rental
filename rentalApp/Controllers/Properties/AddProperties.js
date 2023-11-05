@@ -29,7 +29,7 @@ try {
     const location = {
       type: 'Point',
       coordinates: [parseFloat(req.body.long), parseFloat(req.body.lat)],
-      locationText: locationText,
+      address: locationText,
     };
     
 

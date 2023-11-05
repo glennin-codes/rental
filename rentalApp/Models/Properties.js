@@ -36,6 +36,10 @@ const PropertyListingSchema = new Schema({
       type: [Number], // [longitude, latitude]
       index: '2dsphere', // 2dsphere index for geospatial queries
     },
+    address: {
+      type: String,
+      
+    },
   },
   furnishingStatus:String,
   propertyType:String,
