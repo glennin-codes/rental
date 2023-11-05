@@ -30,7 +30,7 @@ const PropertyListingSchema = new Schema({
     type: {
       type: String,
       enum: ['Point'],
-      required: true,
+      
     },
     coordinates: {
       type: [Number], // [longitude, latitude]
