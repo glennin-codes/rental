@@ -4,8 +4,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import admin from "./Config/config.js";
 
-const generateAuthToken = (userId, email) => {
-  return jwt.sign({ userId: userId, email: email }, process.env.JWT_SECRET, {
+const generateAuthToken = (userId, email,name) => {
+  return jwt.sign({ userId: userId, email: email,name:name }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 };
@@ -39,11 +39,11 @@ export const registerOwner = async (req, res) => {
 
       await user.save();
 
-      const token = generateAuthToken(user._id, user.email);
+      const token = generateAuthToken(user._id, user.email,user.name);
 
       return res
         .status(201)
-        .json({ token, email: user.email, name: user.name, id: user._id });
+        .json({ token });
     } else {
       // Manual Sign-up
       const { name, email, password, phone, location, longitude, latitude } =

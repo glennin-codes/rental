@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import admin from './Config/config.js';
 
-const generateAuthToken = (userId, email) => {
+const generateAuthToken = (userId, email,name) => {
   return jwt.sign(
-    { userId: userId, email: email },
+    { userId: userId, email: email,name:name },
     process.env.JWT_SECRET,
     { expiresIn: '1h' }
   );
@@ -43,9 +43,9 @@ export const loginUser = async (req, res) => {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
 
-      const token = generateAuthToken(user._id, user.email);
+      const token = generateAuthToken(user._id, user.email,user.name);
 
-      res.status(200).json({ token, email: user.email, name: user.name, id: user._id });
+      res.status(200).json({ token});
     }
   } catch (error) {
     console.error(error);
