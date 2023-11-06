@@ -43,7 +43,7 @@ export const registerOwner = async (req, res) => {
 
       return res
         .status(201)
-        .json({ token });
+        .json({ token,id:user._id });
     } else {
       // Manual Sign-up
       const { name, email, password, phone, location, longitude, latitude } =
@@ -72,7 +72,7 @@ export const registerOwner = async (req, res) => {
 
       await user.save();
 
-      const token = generateAuthToken(user._id, user.email);
+      const token = generateAuthToken(user._id, user.email,user.name);
 
       const verify = {
         email: user.email,
