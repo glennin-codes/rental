@@ -31,7 +31,7 @@ router.post('/auth/login',loginUser);
 router.route('/users/').get(getAllUsers);
 router.route('/reset-password/:token').post(UpdatePwd);
 router.route('/pwd-reset-emails/').post(pwdResetEmails);
-router.route('/users/:id').put(AuthenticateToken,UpdateUser).get(getSingleUser).delete(deleteUser);
+router.route('/users/:id').patch(AuthenticateToken,UpdateUser).get(getSingleUser).delete(deleteUser);
 router.route('/properties').post(upload.array('photos[]', 10),addProperties).get(GetAllProperties);
 router.route('/user/properties/').get(GetUserProperties);
 router.route('/property/:id').get(GetSingleProperty).delete(deleteProperty).put(UpdateProperty);
