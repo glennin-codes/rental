@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
 
       if (user) {
         const token = generateAuthToken(user._id, user.email);
-        return res.status(200).json({ token, email: user.email, name: user.name, id: user._id });
+        return res.status(200).json({ token, id: user._id });
       } else {
         return res.status(401).json({ error: 'Invalid email or password' });
       }

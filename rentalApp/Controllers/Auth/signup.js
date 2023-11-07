@@ -84,7 +84,7 @@ export const registerOwner = async (req, res) => {
 
       return res
         .status(201)
-        .json({ token, email: user.email, name: user.name, id: user._id });
+        .json({ token, id: user._id });
     }
   } catch (error) {
     console.error(error);
