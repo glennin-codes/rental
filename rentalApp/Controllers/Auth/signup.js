@@ -46,7 +46,7 @@ export const registerOwner = async (req, res) => {
         .json({ token,id:user._id });
     } else {
       // Manual Sign-up
-      const { name, email, password, phone, location, longitude, latitude } =
+      const { firstName,lastName, email, password, phone,location} =
         req.body;
 
       const existingOwner = await Owner.findOne({ email: email });
@@ -59,13 +59,11 @@ export const registerOwner = async (req, res) => {
       const verificationCode = Math.floor(Math.random() * 900000) + 100000;
 
       const user = new Owner({
-        name: name,
+        name:`${firstName} ${lastName}`,
         email: email,
         password: hashedPassword,
         phone: phone,
         location: location,
-        longitude: longitude,
-        latitude: latitude,
         signupMethod: "manual",
         verificationCode: verificationCode,
       });
