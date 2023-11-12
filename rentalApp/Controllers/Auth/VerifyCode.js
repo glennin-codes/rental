@@ -1,4 +1,10 @@
 import { Owner } from "../../Models/Owner.js";
+
+const generateAuthToken = (userId, email,name) => {
+  return jwt.sign({ userId: userId, email: email,name:name }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+};
 export const verifyCode = async (req, res) => {
   try {
     const { email, code } = req.body;
@@ -13,7 +19,11 @@ export const verifyCode = async (req, res) => {
     user.verificationCode = null;
     await user.save();
 
-    res.status(200).json({ message: "Verification successful" });
+    const token = generateAuthToken(user._id, user.email,user.name);
+
+    return res
+      .status(201)
+      .json({ token,id:user._id ,message:"verification was successfuly"});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

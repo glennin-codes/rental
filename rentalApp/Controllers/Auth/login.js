@@ -27,7 +27,7 @@ export const loginUser = async (req, res) => {
     } else {
       // Manual Sign-in
       const { email, password } = req.body;
-      const user = await Owner.findOne({ email });
+      const user = await Owner.findOne({ email,signupMethod: 'manual' });
 
       if (!user) {
         return res.status(401).json({ error: 'Invalid email or password' });
