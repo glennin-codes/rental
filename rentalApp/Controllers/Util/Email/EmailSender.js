@@ -44,7 +44,7 @@ export const  VerifyEmail=({email,code,name})=>{
     const expirationTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
     const expirationTimestamp = Date.now() + expirationTime;
 // When generating the link
-const cipher = crypto.createCipheriv(algorithm, Buffer.from(EncryptionKey), Buffer.from(InitializationVector));
+const cipher = crypto.createCipheriv(algorithm,  Buffer.from(InitializationVector, 'hex'));
 let encrypted = cipher.update(`email=${email}&code=${code}&expires=${expirationTimestamp}`, 'utf-8', 'hex');
 encrypted += cipher.final('hex');
 const verificationLink = `https://comradesrentals.vercel.app/verifying?data=${encrypted}`;
