@@ -37,7 +37,6 @@ if (error) {
 }
 
 export const  VerifyEmail=({email,code,name})=>{
-;
   const algorithm = 'aes-256-cbc';
   const EncryptionKey = process.env.EncryptionKey;
   const InitializationVector = '6d0cf9de18a8c78b5f888b42d9855bd2';
