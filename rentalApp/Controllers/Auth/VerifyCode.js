@@ -11,7 +11,7 @@ export const verifyCode = async (req, res) => {
   const EncryptionKey = process.env.EncryptionKey;
   const InitializationVector = '6d0cf9de18a8c78b5f888b42d9855bd2';
     const encryptedData = req.body.data;
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(EncryptionKey), Buffer.from(InitializationVector, 'hex'));
+    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(EncryptionKey,'hex'), Buffer.from(InitializationVector, 'hex'));
     let decrypted = decipher.update(encryptedData, 'hex', 'utf-8');
     decrypted += decipher.final('utf-8');
     
