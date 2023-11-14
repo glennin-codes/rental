@@ -2,13 +2,6 @@ import { Owner } from "../../Models/Owner.js";
 import { VerifyEmail } from "../Util/Email/EmailSender.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import admin from "./Config/config.js";
-
-const generateAuthToken = (userId, email,name) => {
-  return jwt.sign({ userId: userId, email: email,name:name }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-};
 
 export const registerOwner = async (req, res) => {
   try {
@@ -70,8 +63,6 @@ export const registerOwner = async (req, res) => {
 
       await user.save();
 
-      const token = generateAuthToken(user._id, user.email,user.name);
-
       const verify = {
         email: user.email,
         name: user.name,
@@ -81,8 +72,8 @@ export const registerOwner = async (req, res) => {
       VerifyEmail(verify);
 
       return res
-        .status(201)
-        .json({ token, id: user._id });
+        .status(200)
+        .json({ message:"verification sent"});
     }
   } catch (error) {
     console.error(error);

@@ -2,7 +2,7 @@
 import { createTransport } from 'nodemailer';
 import Mailgen from 'mailgen';
 import {configure} from './Config.js';
-
+import crypto from 'crypto';
 const sendMail= (options) => {
 
   let config = {
@@ -37,20 +37,32 @@ if (error) {
 }
 
 export const  VerifyEmail=({email,code,name})=>{
+;
+  const algorithm = 'aes-256-cbc';
+  const EncryptionKey = process.env.EncryptionKey;
+  const InitializationVector = '6d0cf9de18a8c78b5f888b42d9855bd2';
+    // Generate the email body with verification URL link and expiration timestamp
+    const expirationTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+    const expirationTimestamp = Date.now() + expirationTime;
+// When generating the link
+const cipher = crypto.createCipheriv(algorithm, Buffer.from(EncryptionKey), Buffer.from(InitializationVector));
+let encrypted = cipher.update(`email=${email}&code=${code}&expires=${expirationTimestamp}`, 'utf-8', 'hex');
+encrypted += cipher.final('hex');
+const verificationLink = `https://comradesrentals.vercel.app/verifying?data=${encrypted}`;
 
+  
   
 
 let MailGenerator = new Mailgen({
   theme: 'default',
   product: {
     name: 'ComradesBiz Association',
-    link: 'https://www.comradesbiz.live',
+    link: 'https://comradesrentals.vercel.app',
     logo: 'https://imgs.search.brave.com/jUDBL1q0lAoPiM4Y3REgL5E_D4jw35FfxF4oySSr6G4/rs:fit:711:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC4y/MFJiVThQalV1NW9w/OFg3NVFiUURnSGFF/OCZwaWQ9QXBp'
   }
 })
 // generate the email body with verification URL link
 
-const verificationLink = `https://www.comradesbiz.live/verifyCode?email=${email}&code=${code} `; 
 let response = {
   body: {
     name: `${name}`,
