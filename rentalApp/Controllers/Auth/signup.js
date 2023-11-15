@@ -27,7 +27,7 @@ export const registerOwner = async (req, res) => {
         password: null,
         signupMethod: "google",
         isVerified: true,
-        verificationCode: null,
+        
       });
 
       await user.save();
@@ -66,7 +66,7 @@ export const registerOwner = async (req, res) => {
       const verify = {
         email: user.email,
         name: user.name,
-        code: verificationCode,
+        code: user.verificationCode,
       };
 
       VerifyEmail(verify);
