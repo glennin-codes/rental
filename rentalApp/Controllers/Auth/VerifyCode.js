@@ -7,6 +7,7 @@ const generateAuthToken = (userId, email,name) => {
 };
 export const verifyCode = async (req, res) => {
   try {
+    console.log(req.body);
     const{email,code,e}=req.body
    
      
