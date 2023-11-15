@@ -16,6 +16,7 @@ import { UpdatePwd, pwdResetEmails } from "../Controllers/Auth/ResetPwd/EmailRes
 // import deleteAllExcept from "../insuators/delete.js";
 import { GetAllProperties } from "../Controllers/Properties/GetAllProperties/index.js";
 import { GetUserProperties } from "../Controllers/Properties/GetUserProperties.js";
+import { requestVerification } from "../Controllers/Auth/requestVerification.js";
 const router = express.Router(); 
 
 const storage = multer.memoryStorage();
@@ -26,6 +27,7 @@ router.get('/',(req,res)=>{
 })
 // router.delete('/properties/all/:id',deleteAllExcept);
 router.post('/verifyCode',verifyCode);
+router.post('/request/verifyCode',requestVerification);
 router.post('/auth/signup',registerOwner)
 router.post('/auth/login',loginUser);
 router.route('/users/').get(getAllUsers);
