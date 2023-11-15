@@ -27,7 +27,7 @@ export const registerOwner = async (req, res) => {
         password: null,
         signupMethod: "google",
         isVerified: true,
-        
+        verificationCode:null
       });
 
       await user.save();
@@ -58,7 +58,7 @@ export const registerOwner = async (req, res) => {
         phone: phone,
         location: location,
         signupMethod: "manual",
-        verificationCode: verificationCode,
+       verificationCode,
       });
 
       await user.save();
