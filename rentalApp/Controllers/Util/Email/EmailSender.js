@@ -3,6 +3,7 @@ import { createTransport } from 'nodemailer';
 import Mailgen from 'mailgen';
 import {configure} from './Config.js';
 import crypto from 'crypto';
+
 const sendMail= (options) => {
 
   let config = {
@@ -37,17 +38,12 @@ if (error) {
 }
 
 export const  VerifyEmail=({email,code,name})=>{
-  const algorithm = 'aes-256-cbc';
-  const EncryptionKey = process.env.EncryptionKey;
-  const InitializationVector = '6d0cf9de18a8c78b5f888b42d9855bd2';
+
     // Generate the email body with verification URL link and expiration timestamp
     const expirationTime = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
     const expirationTimestamp = Date.now() + expirationTime;
-// When generating the link
-const cipher = crypto.createCipheriv(algorithm, Buffer.from(EncryptionKey,'hex'), Buffer.from(InitializationVector, 'hex'));
-let encrypted = cipher.update(`email=${email}&code=${code}&expires=${expirationTimestamp}`, 'utf-8', 'hex');
-encrypted += cipher.final('hex');
-const verificationLink = `https://comradesrentals.vercel.app/verifying?data=${encrypted}`;
+
+const verificationLink = `https://comradesrentals.vercel.app/verifying?email=${email}&code=${code}&e=${expirationTimestamp}`;
 
   
   

@@ -1,5 +1,5 @@
 import { Owner } from "../../Models/Owner.js";
-import crypto from "crypto";
+
 const generateAuthToken = (userId, email,name) => {
   return jwt.sign({ userId: userId, email: email,name:name }, process.env.JWT_SECRET, {
     expiresIn: "1h",
@@ -7,26 +7,14 @@ const generateAuthToken = (userId, email,name) => {
 };
 export const verifyCode = async (req, res) => {
   try {
-    const algorithm = 'aes-256-cbc';
-  const EncryptionKey = process.env.EncryptionKey;
-  const InitializationVector = '6d0cf9de18a8c78b5f888b42d9855bd2';
-    const encryptedData = req.body.data;
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(EncryptionKey,'hex'), Buffer.from(InitializationVector, 'hex'));
-    let decrypted = decipher.update(encryptedData, 'hex', 'utf-8');
-    decrypted += decipher.final('utf-8');
+    const{email,code,e}=req.body
+   
+     
     
-    // Assuming the decrypted string is formatted like "email=value&code=value&expires=value"
-    const decryptedParams = decrypted.split('&').reduce((acc, param) => {
-      const [key, value] = param.split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
-    
-    const email = decryptedParams.email;
-    const code = decryptedParams.code;
-    const expires = decryptedParams.expires;
-    
-    if (expires < Date.now()) {
+    if (!email || !code || !e) {
+      return res.status(400).json({ error: "Invalid verification code" });
+    }
+    if (e < Date.now()) {
       return res.status(400).json({ error: "Verification link has expired" });
     }
     const user = await Owner.findOne({ email: email, verificationCode: code });
