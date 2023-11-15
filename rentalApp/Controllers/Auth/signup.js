@@ -58,7 +58,7 @@ export const registerOwner = async (req, res) => {
         phone: phone,
         location: location,
         signupMethod: "manual",
-       verificationCode,
+       verificationCode:verificationCode,
       });
 
       await user.save();
