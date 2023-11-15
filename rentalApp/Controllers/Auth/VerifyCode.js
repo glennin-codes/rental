@@ -1,5 +1,5 @@
 import { Owner } from "../../Models/Owner.js";
-
+import jwt from 'jsonwebtoken';
 const generateAuthToken = (userId, email,name) => {
   return jwt.sign({ userId: userId, email: email,name:name }, process.env.JWT_SECRET, {
     expiresIn: "1h",
